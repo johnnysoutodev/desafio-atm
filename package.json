@@ -16,7 +16,24 @@
     "build:frontend": "cd atm-frontend && npm run build",
     "clean": "rm -rf atm-backend/data/sessions.json && rm -rf node_modules",
     "setup": "npm run install:all && npm run init:data",
-    "init:data": "cd atm-backend && node scripts/initData.js"
+    "init:data": "cd atm-backend && node scripts/initData.js",
+    
+    "docker:build": "docker-compose build",
+    "docker:dev": "docker-compose up",
+    "docker:prod": "docker-compose -f docker-compose.prod.yml up -d",
+    "docker:test": "docker-compose -f docker-compose.test.yml up --abort-on-container-exit",
+    "docker:down": "docker-compose down",
+    "docker:clean": "docker-compose down -v --rmi all",
+    
+    "k8s:dev": "kubectl apply -f k8s/dev/",
+    "k8s:prod": "kubectl apply -f k8s/prod/",
+    "k8s:delete": "kubectl delete -f k8s/",
+    "k8s:status": "kubectl get all -l app=atm",
+    "k8s:logs": "kubectl logs -l app=atm-backend -f",
+    
+    "deploy:local": "npm run docker:dev",
+    "deploy:staging": "npm run docker:test",
+    "deploy:production": "npm run k8s:prod"
   },
   "keywords": [
     "atm",
@@ -26,9 +43,11 @@
     "frontend",
     "backend",
     "api",
-    "rest"
+    "rest",
+    "docker",
+    "kubernetes"
   ],
-  "author": "Seu Nome <seu.email@exemplo.com>",
+  "author": "Johnny Souto <johnny@exemplo.com>",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.0",
