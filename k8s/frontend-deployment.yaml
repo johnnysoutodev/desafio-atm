@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atm-frontend
+  labels:
+    app: atm-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atm-frontend
+  template:
+    metadata:
+      labels:
+        app: atm-frontend
+    spec:
+      containers:
+      - name: atm-frontend
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: html-content
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: html-content
+        hostPath:
+          path: /Users/johnnysouto/Developer/JohnnySouto/desafio-atm/atm-frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: atm-frontend-service
+spec:
+  selector:
+    app: atm-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
