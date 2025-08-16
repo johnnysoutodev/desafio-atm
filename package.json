@@ -1,0 +1,48 @@
+{
+  "name": "desafio-atm",
+  "version": "1.0.0",
+  "description": "Sistema completo de caixa eletrônico (ATM) com frontend e backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd atm-backend && node server.js",
+    "start:frontend": "cd atm-frontend && npx http-server -p 5500 -c-1",
+    "install:all": "npm install && cd atm-backend && npm install && cd ../atm-frontend && npm install",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd atm-backend && npm test",
+    "test:frontend": "cd atm-frontend && npm test",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd atm-frontend && npm run build",
+    "clean": "rm -rf atm-backend/data/sessions.json && rm -rf node_modules",
+    "setup": "npm run install:all && npm run init:data",
+    "init:data": "cd atm-backend && node scripts/initData.js"
+  },
+  "keywords": [
+    "atm",
+    "banking",
+    "javascript",
+    "nodejs",
+    "frontend",
+    "backend",
+    "api",
+    "rest"
+  ],
+  "author": "Seu Nome <seu.email@exemplo.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnnysoutodev/desafio-atm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/johnnysoutodev/desafio-atm/issues"
+  },
+  "homepage": "https://github.com/johnnysoutodev/desafio-atm#readme"
+}

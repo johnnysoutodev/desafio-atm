@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  atm-backend:
+    build: ./atm-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./atm-backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm start
+
+  atm-frontend:
+    build: ./atm-frontend
+    ports:
+      - "5500:80"
+    volumes:
+      - ./atm-frontend:/usr/share/nginx/html
+    depends_on:
+      - atm-backend
+
+networks:
+  default:
+    name: atm-network
