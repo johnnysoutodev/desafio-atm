@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atm-backend
+  labels:
+    app: atm-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atm-backend
+  template:
+    metadata:
+      labels:
+        app: atm-backend
+    spec:
+      containers:
+      - name: atm-backend
+        image: node:18-alpine
+        ports:
+        - containerPort: 3000
+        workingDir: /app
+        command: ["npm", "start"]
+        volumeMounts:
+        - name: app-code
+          mountPath: /app
+        env:
+        - name: NODE_ENV
+          value: "development"
+        - name: PORT
+          value: "3000"
+      volumes:
+      - name: app-code
+        hostPath:
+          path: /Users/johnnysouto/Developer/JohnnySouto/desafio-atm/atm-backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: atm-backend-service
+spec:
+  selector:
+    app: atm-backend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer
