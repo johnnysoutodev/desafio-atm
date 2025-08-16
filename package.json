@@ -47,7 +47,7 @@
     "docker",
     "kubernetes"
   ],
-  "author": "Johnny Souto <johnny@exemplo.com>",
+  "author": "Johnny Souto <johnnyjns@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.0",
